@@ -17,4 +17,7 @@ binaryen:
 wabt:
 	$(MAKE) -j$(J) -C wabt
 
-.PHONY: all llvm binaryen wabt
+check:
+	$(MAKE) -C tests
+
+.PHONY: all llvm binaryen wabt tests

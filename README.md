@@ -11,6 +11,13 @@ Setup
 - make
 
 
+Tests
+-----
+
+- go get github.com/tsavola/wag
+- make check
+
+
 Usage
 -----
 
