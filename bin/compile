@@ -4,4 +4,4 @@ set -e
 
 toolchain=$(dirname $0)/..
 
-${toolchain}/llvm-build/bin/clang -emit-llvm --target=wasm32 -Oz -c "$@"
+${toolchain}/llvm-build/bin/clang -emit-llvm --target=wasm32 -ffreestanding -Oz -c "$@"
