@@ -1,5 +1,11 @@
-hello: hello/hello.wasm
-	go run test.go
+GO	?= go
+RUNTEST	:= $(GO) run test.go
+
+check: hello/hello.wasm
+	$(RUNTEST) -file=hello/hello.wasm -result=-1592745712
+
+%.bc: %.c
+	../bin/compile -o $@ $*.c
 
 %.bc: %.cpp
 	../bin/compile -o $@ $*.cpp
@@ -7,4 +13,4 @@ hello: hello/hello.wasm
 %.wasm: %.bc
 	../bin/link -o $@ $*.bc
 
-.PHONY: hello
+.PHONY: check

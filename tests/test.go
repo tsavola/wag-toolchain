@@ -2,10 +2,13 @@ package main
 
 import (
 	"bufio"
+	"encoding/binary"
+	"flag"
 	"log"
 	"os"
 
 	"github.com/tsavola/wag"
+	"github.com/tsavola/wag/dewag"
 	"github.com/tsavola/wag/runner"
 )
 
@@ -16,7 +19,14 @@ func main() {
 		stackSize     = 4096
 	)
 
-	f, err := os.Open("hello/hello.wasm")
+	filename := flag.String("file", "", "WebAssembly filename")
+	saveText := flag.String("save-text", "", "save binary file")
+	dumpText := flag.Bool("dump-text", false, "disassemble text section to stdout before executing test")
+	expectResult := flag.Int("result", 0, "expected result value")
+	fixMem := flag.Bool("fix-mem", false, "experimental workaround for a problem")
+	flag.Parse()
+
+	f, err := os.Open(*filename)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -31,12 +41,36 @@ func main() {
 	defer p.Close()
 
 	var m wag.Module
-	m.Load(wasm, runner.Env, p.Text, p.ROData, p.RODataAddr(), nil)
+
+	err = m.Load(wasm, runner.Env, p.Text, p.ROData, p.RODataAddr(), nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	p.Seal()
 	p.SetData(m.Data())
 	p.SetFunctionMap(m.FunctionMap())
 	p.SetCallMap(m.CallMap())
 	minMemorySize, maxMemorySize := m.MemoryLimits()
+
+	if *saveText != "" {
+		f, err = os.Create(*saveText)
+		defer f.Close()
+
+		if _, err := f.Write(m.Text()); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	if *dumpText {
+		diswag.PrintTo(os.Stdout, m.Text(), m.FunctionMap())
+	}
+
+	if *fixMem {
+		data, memoryOffset := m.Data()
+		memory := data[memoryOffset:]
+		binary.LittleEndian.PutUint32(memory[4:], uint32(minMemorySize)) // stack ptr?
+	}
 
 	r, err := p.NewRunner(minMemorySize, maxMemorySize, stackSize)
 	if err != nil {
@@ -51,7 +85,7 @@ func main() {
 
 	log.Printf("result: 0x%x", uint32(result))
 
-	if result != -1592745712 {
+	if result != int32(*expectResult) {
 		os.Exit(1)
 	}
 }
