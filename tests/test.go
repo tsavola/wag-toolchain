@@ -63,7 +63,7 @@ func main() {
 	}
 
 	if *dumpText {
-		diswag.PrintTo(os.Stdout, m.Text(), m.FunctionMap())
+		dewag.PrintTo(os.Stdout, m.Text(), m.FunctionMap())
 	}
 
 	if *fixMem {
