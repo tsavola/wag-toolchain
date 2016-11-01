@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"encoding/binary"
 	"flag"
 	"log"
 	"os"
@@ -23,7 +22,6 @@ func main() {
 	saveText := flag.String("save-text", "", "save binary file")
 	dumpText := flag.Bool("dump-text", false, "disassemble text section to stdout before executing test")
 	expectResult := flag.Int("result", 0, "expected result value")
-	fixMem := flag.Bool("fix-mem", false, "experimental workaround for a problem")
 	flag.Parse()
 
 	f, err := os.Open(*filename)
@@ -64,12 +62,6 @@ func main() {
 
 	if *dumpText {
 		dewag.PrintTo(os.Stdout, m.Text(), m.FunctionMap())
-	}
-
-	if *fixMem {
-		data, memoryOffset := m.Data()
-		memory := data[memoryOffset:]
-		binary.LittleEndian.PutUint32(memory[4:], uint32(minMemorySize)) // stack ptr?
 	}
 
 	r, err := p.NewRunner(minMemorySize, maxMemorySize, stackSize)
