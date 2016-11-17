@@ -61,7 +61,7 @@ func main() {
 	}
 
 	if *dumpText {
-		dewag.PrintTo(os.Stdout, m.Text(), m.FunctionMap())
+		dewag.PrintTo(os.Stdout, m.Text(), m.FunctionMap(), nil)
 	}
 
 	r, err := p.NewRunner(minMemorySize, maxMemorySize, stackSize)
