@@ -17,5 +17,5 @@ tempname=$(echo "${output}" | sed 's/\.wasm$//')_link
 
 ${toolchain}/llvm-build/bin/llvm-link -o "${tempname}.bc" "$@"
 ${toolchain}/llvm-build/bin/llc -o "${tempname}.s" "${tempname}.bc"
-${toolchain}/binaryen-build/bin/s2wasm --allocate-stack=${WAGTOOLCHAIN_ALLOCATE_STACK:-32768} --start=__start "${tempname}.s" > "${tempname}.wast"
+${toolchain}/binaryen-build/bin/s2wasm --allocate-stack=${WAGTOOLCHAIN_ALLOCATE_STACK:-32768} "${tempname}.s" > "${tempname}.wast"
 ${toolchain}/wabt/out/wast2wasm --debug-names -o "${output}" "${tempname}.wast"
