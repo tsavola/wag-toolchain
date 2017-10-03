@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM ubuntu:zesty
 
 COPY bin/compile /usr/local/bin/
 COPY bin/link /usr/local/bin/
