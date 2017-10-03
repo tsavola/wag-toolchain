@@ -24,7 +24,7 @@ binaryen:
 
 wabt:
 	$(MAKE) -j$(J) -C wabt
-	strip wabt/out/clang/Debug/*wasm
+	strip wabt/bin/wat2wasm
 
 check:
 	$(MAKE) -C tests
