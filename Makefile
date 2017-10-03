@@ -18,9 +18,9 @@ llvm:
 
 binaryen:
 	mkdir -p binaryen-build
-	cd binaryen-build && $(CMAKE) -G Ninja ../binaryen
-	$(NINJA) -j$(J) -C binaryen-build
-	strip binaryen-build/bin/*
+	cd binaryen-build && $(CMAKE) -DCMAKE_BUILD_TYPE=MinSizeRel -G Ninja ../binaryen
+	$(NINJA) -j$(J) -C binaryen-build bin/s2wasm
+	strip binaryen-build/bin/s2wasm
 
 wabt:
 	$(MAKE) -j$(J) -C wabt
