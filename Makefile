@@ -29,4 +29,4 @@ wabt:
 check:
 	$(MAKE) -C tests
 
-.PHONY: all llvm binaryen wabt tests
+.PHONY: all llvm binaryen wabt check
