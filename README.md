@@ -21,8 +21,8 @@ Setup
 Usage
 -----
 
-- `out/bin/clang --target=wasm32 -emit-llvm -o unit1.bc unit1.cpp`
-- `out/bin/clang --target=wasm32 -emit-llvm -o unit2.bc unit2.cpp`
+- `out/bin/clang --target=wasm32-unknown-unknown -emit-llvm -o unit1.bc unit1.cpp`
+- `out/bin/clang --target=wasm32-unknown-unknown -emit-llvm -o unit2.bc unit2.cpp`
 - `out/bin/clang -o program.wasm unit1.bc unit2.bc`
 
 

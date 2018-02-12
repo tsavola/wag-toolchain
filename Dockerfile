@@ -1,13 +1,9 @@
 FROM ubuntu:artful
 
-COPY bin/compile /usr/local/bin/
-COPY bin/link /usr/local/bin/
-COPY binaryen-build/bin/s2wasm /usr/local/binaryen-build/bin/
-COPY llvm-build/bin/clang-7.0 /usr/local/llvm-build/bin/clang
-COPY llvm-build/bin/llc /usr/local/llvm-build/bin/
-COPY llvm-build/bin/llvm-as /usr/local/llvm-build/bin/
-COPY llvm-build/bin/llvm-link /usr/local/llvm-build/bin/
-COPY wabt/bin/wat2wasm /usr/local/wabt/bin/
+COPY out/bin/clang-7.0 /usr/local/out/bin/clang
+COPY out/bin/llvm-as /usr/local/out/bin/
+COPY out/bin/llvm-link /usr/local/out/bin/
+COPY out/bin/wasm-ld /usr/local/out/bin/
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install python && \
