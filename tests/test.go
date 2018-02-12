@@ -40,7 +40,7 @@ func main() {
 	defer p.Close()
 
 	m := wag.Module{
-		MainSymbol: "main",
+		EntrySymbol: "main",
 	}
 
 	err = m.Load(wasm, runner.Env, bytes.NewBuffer(p.Text[:0]), p.ROData, p.RODataAddr(), nil)

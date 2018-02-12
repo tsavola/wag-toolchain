@@ -5,12 +5,12 @@ check: hello/hello.wasm
 	$(RUNTEST) -file=hello/hello.wasm -result=-1592745712
 
 %.bc: %.c
-	../bin/compile -o $@ $*.c
+	../out/bin/clang --target=wasm32 -emit-llvm -o $@ $*.c
 
 %.bc: %.cpp
-	../bin/compile -o $@ $*.cpp
+	../out/bin/clang --target=wasm32 -emit-llvm -o $@ $*.cpp
 
 %.wasm: %.bc
-	../bin/link -o $@ $*.bc
+	../out/bin/clang -o $@ $*.bc
 
 .PHONY: check

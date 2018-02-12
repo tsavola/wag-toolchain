@@ -6,8 +6,8 @@ building C/C++ programs for the current version of
 Requirements
 ------------
 
-Whatever LLVM, binaryen and wabt require: at least cmake, ninja-build and
-clang.  Linux, Go and libcapstone are required for testing.
+Whatever LLVM requires: at least cmake, ninja-build and clang.
+Linux, Go and libcapstone are required for testing.
 
 
 Setup
@@ -21,9 +21,9 @@ Setup
 Usage
 -----
 
-- `bin/compile -o unit1.bc unit1.cpp`
-- `bin/compile -o unit2.bc unit2.cpp`
-- `bin/link -o program.wasm unit1.bc unit2.bc`
+- `out/bin/clang --target=wasm32 -emit-llvm -o unit1.bc unit1.cpp`
+- `out/bin/clang --target=wasm32 -emit-llvm -o unit2.bc unit2.cpp`
+- `out/bin/clang -o program.wasm unit1.bc unit2.bc`
 
 
 Testing

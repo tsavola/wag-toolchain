@@ -1,12 +1,9 @@
-[submodule "wabt"]
-	path = wabt
-	url = https://github.com/WebAssembly/wabt.git
-[submodule "binaryen"]
-	path = binaryen
-	url = https://github.com/tsavola/binaryen.git
 [submodule "llvm"]
 	path = llvm
 	url = http://llvm.org/git/llvm.git
 [submodule "clang"]
 	path = clang
 	url = http://llvm.org/git/clang.git
+[submodule "lld"]
+	path = lld
+	url = http://llvm.org/git/lld.git
