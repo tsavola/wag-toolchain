@@ -8,8 +8,8 @@ build:
 	[ -L llvm/tools/lld ] || ln -s ../../lld llvm/tools/lld
 	mkdir -p out
 	cd out && $(CMAKE) -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_CROSSCOMPILING=True -DLLVM_DEFAULT_TARGET_TRIPLE=wasm32-unknown-unknown -DLLVM_TARGET_ARCH=wasm32 -DLLVM_TARGETS_TO_BUILD= -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly -G Ninja ../llvm
-	$(NINJA) -j$(J) -C out bin/clang-8 bin/lld bin/llvm-as bin/llvm-link
-	ln -sf clang-8 out/bin/clang
+	$(NINJA) -j$(J) -C out bin/clang-7 bin/lld bin/llvm-as bin/llvm-link
+	ln -sf clang-7 out/bin/clang
 	- strip out/bin/*
 
 check:
